@@ -12,7 +12,7 @@ RUN apt update -y && apt upgrade -y && useradd -m docker
 
 # Install Dependencies
 RUN apt install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https curl gnupg
+    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https curl gnupg unzip vim 
 
 # Install Powershell Core
 RUN wget -q https://packages.microsoft.com/config/ubuntu/${OS_VERSION}/packages-microsoft-prod.deb \
@@ -28,19 +28,19 @@ RUN pwsh -c "Install-Module -Name Az -Force" \
 # Install Azure Tools
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
 
-# Install HashiCorp Tools (Terraform and Packer)
-RUN wget -O- https://apt.releases.hashicorp.com/gpg | \
-    gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null \
-    gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint \
-    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-    https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list \
-    && apt update -y \
-    && apt install -y  terraform packer
+# Install Terraform & Packer
+RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/hashicorp.list \
+    && apt update \
+    && apt install -y terraform packer \
+    && terraform --version \
+    && packer --version
 
 # Install Ansbile
 RUN apt-add-repository -y --update ppa:ansible/ansible \
     && apt update -y \
-    && pip3 install pywinrm pyvmomi ansible 
+    && pip3 install pywinrm pyvmomi ansible \
+    && ansible --version
 
 # Install GH Runner Agent
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
