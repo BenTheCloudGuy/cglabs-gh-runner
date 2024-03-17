@@ -26,7 +26,7 @@ RUN pwsh -c "Install-Module -Name Az -Force" \
     && pwsh -c "Install-Module -Name Microsoft.Graph -Force"
 
 # Install Azure Tools
-RUN curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash 
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
 
 # Install HashiCorp Tools (Terraform and Packer)
 RUN wget -O- https://apt.releases.hashicorp.com/gpg | \
