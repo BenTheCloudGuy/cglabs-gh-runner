@@ -11,7 +11,7 @@ RUN apt update -y && apt upgrade -y && useradd -m docker
 
 # install dependencies
 RUN apt install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip
+    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common
 
 # Install Ansbile on Image
 run apt-add-repository -y --update ppa:ansible/ansible \
