@@ -11,7 +11,13 @@ RUN apt update -y && apt upgrade -y && useradd -m docker
 
 # install dependencies
 RUN apt install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common
+    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https
+
+# Install Powershell Core
+run wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && apt update -y \
+    && apt install -y powershell 
 
 # Install Ansbile on Image
 run apt-add-repository -y --update ppa:ansible/ansible \
