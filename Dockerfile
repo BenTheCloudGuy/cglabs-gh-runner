@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
 
+# Set the version of the runner to install (https://github.com/actions/runner/releases) 
 ARG RUNNER_VERSION="2.314.1"
 
 # Prevents installdependencies.sh from prompting the user and blocking the image creation
