@@ -10,6 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: test for Ansible
+      - name: Get Linux Version Info
         shell: bash
         run: cat /etc/os-release 
