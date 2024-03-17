@@ -1,7 +1,8 @@
 FROM ubuntu:20.04
 
-# Set the version of the runner to install (https://github.com/actions/runner/releases) 
-ARG RUNNER_VERSION="2.314.1"
+# Set the Arguments for the Dockerfile
+ARG RUNNER_VERSION="2.314.1"        # Use this to set the Download Version for the Runner
+ARG OS_VERSION="20.04"              # Use this to set the Download Version for the Microsoft Repo
 
 # Prevents installdependencies.sh from prompting the user and blocking the image creation
 ARG DEBIAN_FRONTEND=noninteractive
@@ -14,13 +15,13 @@ RUN apt install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https
 
 # Install Powershell Core
-run wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb \
+RUN wget -q https://packages.microsoft.com/config/ubuntu/${OS_VERSION}/packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb \
     && apt update -y \
     && apt install -y powershell 
 
 # Install Ansbile on Image
-run apt-add-repository -y --update ppa:ansible/ansible \
+RUN apt-add-repository -y --update ppa:ansible/ansible \
     && apt update -y \
     && pip3 install pywinrm pyvmomi ansible 
 
