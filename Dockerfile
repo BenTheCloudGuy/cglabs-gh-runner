@@ -14,11 +14,9 @@ RUN apt install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip
 
 # Install Ansbile on Image
-run apt-add-repository --yes --update ppa:ansible/ansible \
-    && apt update --yes \
-    && pip3 install pywinrm \
-    && pip3 install pyvmomi \
-    && pip3 install ansible 
+run apt-add-repository -y --update ppa:ansible/ansible \
+    && apt update -y \
+    && pip3 install pywinrm pyvmomi ansible 
 
 # Install the runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
