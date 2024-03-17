@@ -13,3 +13,7 @@ jobs:
       - name: Get Linux Version Info
         shell: bash
         run: cat /etc/os-release 
+
+      - name: test Ansible
+        shell: bash
+        run: ansible --version
