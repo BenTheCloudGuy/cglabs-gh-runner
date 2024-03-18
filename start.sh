@@ -11,8 +11,7 @@ echo "TARGET REPO ${REPOSITORY}"
 echo ""
 echo "Copy SSH Keys from tmp to .ssh"
 cp -RT /home/docker/tmp/. /home/docker/.ssh/
-chmod -R /home/docker/.ssh
-
+chmod 644 -R  /home/docker/.ssh
 
 REG_TOKEN=$(curl -X POST -H "Authorization: token ${ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
 
