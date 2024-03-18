@@ -50,6 +50,13 @@ RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
 # Grant docker access to runner script
 RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependencies.sh
 
+# Set .SSH Directory for mapping.
+RUN mkdir -p /home/docker/.ssh \
+    && chmod 600 /home/docker/.ssh/authorized_keys \
+    && chown 700 /home/docker/.ssh
+
+WORKDIR /home/docker
+
 # Copy start.sh to the image
 COPY start.sh start.sh
 
