@@ -52,6 +52,7 @@ RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependenci
 
 # Set .SSH Directory for mapping.
 RUN mkdir -p /home/docker/.ssh \
+    && touch /home/docker/.ssh/authorized_keys \
     && chmod 600 /home/docker/.ssh/authorized_keys \
     && chown 700 /home/docker/.ssh
 
