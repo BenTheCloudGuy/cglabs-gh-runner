@@ -47,8 +47,15 @@ RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
+# Setup up SSH Folders
+RUN mkdir /home/docker/.ssh \
+    && mkdir /home/docker/tmp \
+    && chown -R docker /home/docker/.ssh \
+    && chown -R docker /home/docker/tmp
+
 # Grant docker access to runner script
-RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependencies.sh
+RUN chown -R docker ~docker \
+    && /home/docker/actions-runner/bin/installdependencies.sh
 
 # Copy start.sh to the image
 COPY start.sh start.sh
