@@ -54,9 +54,8 @@ RUN chown -R docker ~docker && /home/docker/actions-runner/bin/installdependenci
 RUN mkdir -p /home/docker/.ssh \
     && touch /home/docker/.ssh/authorized_keys \
     && chmod 600 /home/docker/.ssh/authorized_keys \
-    && chown 700 /home/docker/.ssh
-
-WORKDIR /home/docker
+    && chown 700 /home/docker/.ssh \
+    && chmod 644 ~/.ssh/config
 
 # Copy start.sh to the image
 COPY start.sh start.sh
