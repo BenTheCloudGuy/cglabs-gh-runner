@@ -1,23 +1,79 @@
-# Containerizing GitHub Actions Self-Hosted Runners
+# Custom GitHub Runner Docker Image
 
-GitHub Actions offer a powerful platform for automating workflows in development environments. However, issues may arise when using shared runners, such as limited memory and increasing build times. 
+This repository contains a custom GitHub Runner packaged as a Docker image. GitHub Actions allows you to automate your workflow, and using custom runners can extend the capabilities of your actions. This Docker image provides a way to run GitHub Actions workflows on your own infrastructure. Image is based on ubuntu:20.04
 
-- List of latest Versions can be found [HERE](https://github.com/actions/runner/releases)
+Details on this Docker Image can be found at: [GitHub | BenTheCloudGuy](https://github.com/BenTheCloudGuy/cglabs-gh-runner)
 
-## Setup Steps
+## Features
 
-1. **Create Dockerfile**: Begin by creating a Dockerfile corresponding to the image of a single runner. This file contains instructions for setting up dependencies, downloading the runner files, and configuring the runner.
+- **Customizable**: Easily configure the runner to suit your specific needs and environment.
+- **Docker-based**: Utilizes Docker to encapsulate the runner environment, ensuring consistency and portability.
+- **Scalable**: Can be scaled horizontally by spinning up multiple instances to handle parallel jobs.
+- **Self-hosted**: Enables you to run workflows on your own servers or cloud infrastructure.
+- **Flexible**: Supports running workflows for both public and private repositories.
 
-2. **Build and Push Image**: Build the Docker image and push it to a container registry like Docker Hub. This step prepares the image for deployment on the server.
+## Installed Applications
 
-3. **Setup Docker on Server**: Install and set up Docker on the server instance where the self-hosted runners will run. This ensures Docker is ready to execute containers.
+- Ansible
+- Hashicorp Packer
+- Hashicorp Terraform
+- Azure CLI
+- Powershell Core
+   - Az Module
+   - AzureAD Module
+   - Microsoft.Graph Module
 
-4. **Prepare compose.yml File**: Create a compose.yml file to define the configuration for launching multiple GitHub Actions runners as Docker containers. This file includes environment variables and resource limits for each runner.
 
-5. **Launch Runners**: Use Docker Compose to launch the defined number of GitHub Actions runners as Docker containers on the server. Each container represents an independent self-hosted runner.
+## Prerequisites
 
-6. **Cleanup**: Implement cleanup mechanisms to remove runners when Docker containers are stopped. This ensures proper management of resources and prevents orphaned runners.
+Before using this Docker image, ensure you have the following prerequisites installed:
 
-## Conclusion
+- Docker Engine: [Installation Guide](https://docs.docker.com/get-docker/)
+- GitHub Repository: Set up a repository on GitHub where you want to use the custom runner.
 
-Containerizing GitHub Actions self-hosted runners offers a flexible and scalable solution for managing workflows in development environments. By leveraging Docker containers, developers can launch multiple runners on a single server instance, improving performance and resource utilization.
+## Usage
+
+### 1. Pull the Docker Image
+
+Pull the latest version of the custom GitHub Runner Docker image from Docker Hub:
+
+```bash
+docker pull benthebuilder/cglabs-gh-runner
+```
+
+### 2. Configure Runner
+
+Set up the runner by providing necessary configuration options such as GitHub registration token, runner name, etc. These configurations are typically provided through environment variables.
+
+### 3. Run Docker Container
+
+Start the Docker container using the pulled image:
+
+```bash
+docker run -d benthebuilder/cglabs-gh-runner
+```
+
+### 4. Register Runner
+
+Once the container is running, register the runner with your GitHub repository. Follow the instructions provided by GitHub for runner registration.
+
+### 5. Run Workflows
+
+After registering the runner, you can now use it to run workflows in your GitHub repository. Configure your workflows to use this runner as needed.
+
+## Configuration
+
+You can configure the custom GitHub Runner by providing environment variables to the Docker container. Refer to the [GitHub Actions documentation](https://docs.github.com/en/actions/hosting-your-own-runners/about-self-hosted-runners#self-hosted-runner-groups) for a list of available configuration options.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgements
+
+- This Docker image is inspired by the official GitHub Actions Runner.
+- Special thanks to the GitHub Actions community for their contributions and support.
+
+## Support
+
+For any questions, issues, or feedback, please [open an issue](https://github.com/BenTheCloudGuy/cglabs-gh-runner/issues/new) on GitHub.
