@@ -48,7 +48,7 @@ RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
 
 # Setup up SSH Folders
-RUN mkdir /home/docker/.ssh \
+RUN mkdir /home/docker/.ssh 
 
 # Grant docker access to runner script
 RUN chown -R docker ~docker \
