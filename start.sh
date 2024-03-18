@@ -10,12 +10,26 @@ echo "==================================================="
 echo "Configure SSH Directory"
 echo "TARGET REPO ${REPOSITORY}"
 echo ""
-echo "Copy SSH Keys from tmp to .ssh"
-cp -R /home/docker/tmp/. /home/docker/.ssh/
 
-echo "Setting .ssh ownership & permissions:"
-chown -R docker /home/docker/.ssh
-chmod 600 /home/docker/.ssh
+echo "Verify TEMP SSH Directory Exists"
+if [ -d "/home/docker/tmp" ]; then
+    echo "/home/docker/tmp Directory does exist."
+fi
+
+echo "Verify SSH Directory Exists"
+if [ -d "/home/docker/.ssh" ]; then
+    echo "/home/docker/.ssh Directory does exist."
+
+    echo "Copy SSH Keys from tmp to .ssh"
+    cp -R /home/docker/tmp/. /home/docker/.ssh/
+
+    echo "Setting .ssh ownership & permissions:"
+    chown -R docker /home/docker/.ssh
+    chmod 600 /home/docker/.ssh
+
+    echo "Get Output of .ssh Directory"
+    ls -la /home/docker/.ssh 
+fi
 
 REG_TOKEN=$(curl -X POST -H "Authorization: token ${ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
 
