@@ -49,9 +49,6 @@ RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
 
 # Setup up SSH Folders
 RUN mkdir /home/docker/.ssh \
-    && mkdir /home/docker/tmp \
-    && chown -R docker /home/docker/.ssh \
-    && chown -R docker /home/docker/tmp
 
 # Grant docker access to runner script
 RUN chown -R docker ~docker \
