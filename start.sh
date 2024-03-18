@@ -10,7 +10,7 @@ echo "Configure SSH Directory"
 echo "TARGET REPO ${REPOSITORY}"
 echo ""
 echo "Copy SSH Keys from tmp to .ssh"
-cp -R /home/docker/tmp/. /home/docker/.ssh
+cp -RT /home/docker/tmp/. /home/docker/.ssh/
 chmod -R /home/docker/.ssh
 
 
