@@ -2,7 +2,7 @@
 
 This repository contains a custom GitHub Runner packaged as a Docker image. GitHub Actions allows you to automate your workflow, and using custom runners can extend the capabilities of your actions. This Docker image provides a way to run GitHub Actions workflows on your own infrastructure. Image is based on ubuntu:20.04
 
-Details on this Docker Image can be found at: [GitHub | BenTheCloudGuy](https://github.com/BenTheCloudGuy/cglabs-gh-runner)
+Docker Image can be found at: [DockerHub | BenTheBuilder/cglabs-gh-runner](https://hub.docker.com/r/benthebuilder/cglabs-gh-runner)
 
 ## Features
 
