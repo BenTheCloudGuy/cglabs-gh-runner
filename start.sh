@@ -24,7 +24,6 @@ if [ -d $SSH_TMP_DIR ]; then
     for key in *; 
     do
         if [ $key != "authorized_keys" ]; then
-            echo "Setting Permissions for ${key}"
             chmod 600 "${key}"
         fi
     done
