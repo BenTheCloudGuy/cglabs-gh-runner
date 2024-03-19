@@ -10,7 +10,7 @@ echo "==================================================="
 echo "TARGET REPO: ${REPOSITORY}"
 echo ""
 
-if [$SSH_TMP_DIR]; then
+if [ -d $SSH_TMP_DIR]; then
     echo "SSH_TMP_DIR Found: ${SSH_TMP_DIR}"
     echo "Copying SSH Files from ${SSH_TMP_DIR}"
     cp -r ${SSH_TMP_DIR} /home/docker/.ssh
