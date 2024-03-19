@@ -7,7 +7,7 @@ echo ""
 echo ""
 echo "BenTheBuilder GitHub Action Runner: "
 echo "==================================================="
-echo "TARGET REPO ${REPOSITORY}"
+echo "TARGET REPO: ${REPOSITORY}"
 echo ""
 
 if [$SSH_TMP_DIR]
@@ -16,12 +16,12 @@ then
     echo "Copying SSH Files from ${SSH_TMP_DIR}"
     cp -r ${SSH_TMP_DIR} /home/docker/.ssh
     cd /home/docker/.ssh
-    for key in *; do
+    for key in * 
+    do
         if [!"authorized_keys"]
         then
             echo "Setting Permissions for ${key}"
             chmod 600 ${key}
-    done
 
 REG_TOKEN=$(curl -X POST -H "Authorization: token ${ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
 
