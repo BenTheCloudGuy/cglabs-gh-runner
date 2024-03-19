@@ -1,34 +1,26 @@
 #!/bin/bash
 REPOSITORY=$REPO
 ACCESS_TOKEN=$TOKEN
-
-# Example for getting .SSH keys via mapped volume | /mnt/user/appdata/sshFolder/tmp/.ssh/  ==>  /home/docker/tmp/
+SSH_TMP_DIR=$SSH_TMP_DIR #  /home/docker/tmp/
+ 
 echo ""
 echo ""
 echo "BenTheBuilder GitHub Action Runner: "
 echo "==================================================="
-echo "Configure SSH Directory"
 echo "TARGET REPO ${REPOSITORY}"
 echo ""
 
-echo "Verify TEMP SSH Directory Exists"
-if [ -d "/home/docker/tmp" ]; then
-    echo "/home/docker/tmp Directory does exist."
-fi
-
-echo "Verify SSH Directory Exists"
-if [ -d "/home/docker/.ssh" ]; then
-    echo "/home/docker/.ssh Directory does exist."
-
-    echo "Copy SSH Keys from tmp to .ssh"
-    cp -R /home/docker/tmp/. /home/docker/.ssh/
-
-    echo "Setting .ssh ownership & permissions:"
-    chown -R docker /home/docker/.ssh
-    chmod 600 /home/docker/.ssh
-
-    echo "Get Output of .ssh Directory"
-    ls -la /home/docker/.ssh 
+if [$SSH_TMP_DIR] then
+    echo "SSH_TMP_DIR Found: ${SSH_TMP_DIR}"
+    echo "Copying SSH Files from ${SSH_TMP_DIR}"
+    cp -r ${SSH_TMP_DIR} /home/docker/.ssh
+    cd /home/docker/.ssh
+    for key in *; do
+        if [!"authorized_keys"] then
+            echo "Setting Permissions for ${key}"
+            chmod 600 ${key}
+        fi
+    done
 fi
 
 REG_TOKEN=$(curl -X POST -H "Authorization: token ${ACCESS_TOKEN}" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${REPOSITORY}/actions/runners/registration-token | jq .token --raw-output)
