@@ -12,7 +12,8 @@ echo "==================================================="
 echo "SSH_TMP_DIR: ${SSH_TMP_DIR}"
 echo "REPOSITORY: ${REPOSITORY}"
 echo "RUNNER_VERSION: ${RUNNER_VERSION}"     
-echo "OS_VERSION: ${OS_VERSION}"      
+echo "OS_VERSION: ${OS_VERSION}"
+echo "ACCESS_TOKEN: ${ACCESS_TOKEN}"      
 echo ""
 
 if [ -d $SSH_TMP_DIR ]; then
