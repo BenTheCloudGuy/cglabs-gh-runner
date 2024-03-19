@@ -1,7 +1,7 @@
-name: "Build Image"
+name: "Build Working Image"
 on:
-  pull_request:
-    branches: [ "main" ]
+  push:
+    branches: [ "working" ]
     
 jobs:
   docker:
@@ -23,4 +23,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: benthebuilder/cglabs-gh-runner
+          tags: benthebuilder/cglabs-gh-runner:working
