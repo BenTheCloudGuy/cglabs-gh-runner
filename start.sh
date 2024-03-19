@@ -16,8 +16,8 @@ echo "OS_VERSION: ${OS_VERSION}"
 echo "ACCESS_TOKEN: ${ACCESS_TOKEN}"      
 echo ""
 
+# If SSH_TMP_DIR is set, copy the SSH files to the .ssh directory
 if [ -d $SSH_TMP_DIR ]; then
-    echo "SSH_TMP_DIR Found: ${SSH_TMP_DIR}"
     echo "Copying SSH Files from ${SSH_TMP_DIR}"
     cp -a "${SSH_TMP_DIR}". /home/docker/.ssh
     cd /home/docker/.ssh
