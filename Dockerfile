@@ -16,7 +16,7 @@ RUN apt update -y && apt upgrade -y && useradd -m docker
 
 # Install Dependencies
 RUN apt install -y --no-install-recommends \
-    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https curl gnupg unzip vim 
+    curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip software-properties-common openssh-client wget apt-transport-https curl gnupg unzip vim iputils-ping
 
 # Install Powershell Core
 RUN wget -q https://packages.microsoft.com/config/ubuntu/${OS_VERSION}/packages-microsoft-prod.deb \
@@ -27,7 +27,8 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/${OS_VERSION}/packages-
 # Install Azure Powershell Modules
 RUN pwsh -c "Install-Module -Name Az -Force" \
     && pwsh -c "Install-Module -Name AzureAD -RequiredVersion 2.0.2.140 -Force" \
-    && pwsh -c "Install-Module -Name Microsoft.Graph -Force"
+    && pwsh -c "Install-Module -Name Microsoft.Graph -Force" \
+    && pwsh -c "Install-Module -Name powershell-yaml -Force"
 
 # Install Azure Tools
 RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash 
@@ -40,11 +41,14 @@ RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/shar
     && terraform --version \
     && packer --version
 
-# Install Ansbile
+# Install Ansible
 RUN apt-add-repository -y --update ppa:ansible/ansible \
     && apt update -y \
     && pip3 install pywinrm pyvmomi ansible \
-    && ansible --version
+    && ansible --version \
+    && mkdir /etc/ansible/ \
+    && chown docker /etc/ansible/ \
+    && chmod 755 /etc/ansible/
 
 # Install GH Runner Agent
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
