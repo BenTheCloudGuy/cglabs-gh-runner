@@ -41,11 +41,14 @@ RUN wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/shar
     && terraform --version \
     && packer --version
 
-# Install Ansbile
+# Install Ansible
 RUN apt-add-repository -y --update ppa:ansible/ansible \
     && apt update -y \
     && pip3 install pywinrm pyvmomi ansible \
-    && ansible --version
+    && ansible --version \
+    && mkdir /etc/ansible/ \
+    && chown docker /etc/ansible/ \
+    && chmod 755 /etc/ansible/
 
 # Install GH Runner Agent
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
