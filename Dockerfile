@@ -4,6 +4,10 @@ FROM ubuntu:20.04
 ARG RUNNER_VERSION="2.314.1"        # Use this to set the Download Version for the Runner
 ARG OS_VERSION="20.04"              # Use this to set the Download Version for the Microsoft Repo
 
+# Set Envirorment Variables based on the Arguements
+ENV RUNNER_VERSION=${RUNNER_VERSION}
+ENV OS_VERSION=${OS_VERSION}
+
 # Prevents installdependencies.sh from prompting the user and blocking the image creation
 ARG DEBIAN_FRONTEND=noninteractive
 
