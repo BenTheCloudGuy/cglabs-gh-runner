@@ -50,7 +50,11 @@ Set up the runner by providing necessary configuration options such as GitHub re
 Start the Docker container using the pulled image:
 
 ```bash
-docker run -d benthebuilder/cglabs-gh-runner
+docker run -d --name='GH-RUNNER-LOCAL' `
+   -e 'TOKEN'="$env:GH_TOKEN" `
+   -e 'REPO'="<USERNAME>/<REPONAME>" `
+   -e 'SSH_TMP_DIR'="/home/docker/tmp/: `
+   -v 'C:/Users/BenTheBuilder/.ssh':'/home/docker/tmp':'rw' benthebuilder/cglabs-gh-runner:working
 ```
 
 ### 4. Register Runner
